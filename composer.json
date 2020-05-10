@@ -1,0 +1,13 @@
+{
+    "name": "bertin-dev/app-web_localisation",
+    "description": "Application de recherche de toutes les  entreprises du cameroun",
+    "authors": [
+        {
+            "name": "bertin.dev",
+            "email": "bertmoun@yahoo.fr"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.1"
+    }
+}
