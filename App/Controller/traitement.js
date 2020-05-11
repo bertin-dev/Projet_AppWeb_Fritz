@@ -1,6 +1,4 @@
-/* ==========================================================================
-SYSTEME DE GESTION DE L'ALERT DE NOTIFICATION APRES UN EVENEMENT
-   ========================================================================== */
+
 
 $(function () {
 
@@ -361,11 +359,6 @@ GESTION DU SYSTEME D'INSCRIPTION
 });
 
 
-
-
-
-
-
 /* ==========================================================================
        GESTION DU SYSTEME DE CONNEXION
    ========================================================================== */
@@ -481,7 +474,7 @@ $(function () {
                         });
 
                         setTimeout(function () {
-                            $(location).attr('href',"../Administrator/index.php");
+                            $(location).attr('href',"Administrator/index.php");
                         }, 7000);
                     }else if(data === 'success'){
                         $('#enreg_connexion').attr('value', 'Envoyer');
@@ -502,7 +495,7 @@ $(function () {
                         });
 
                         setTimeout(function () {
-                            $(location).attr('href',"register-step2.php");
+                            $(location).attr('href',"members.php");
                         }, 7000);
                     }
                     else {
@@ -912,6 +905,195 @@ $(function () {
                         }
                     }
 
+                }
+
+            });
+
+        }
+
+
+    });
+
+});
+
+
+/* ==========================================================================
+       GESTION DU SYSTEME DE MODIFICATION
+   ========================================================================== */
+
+$(function () {
+    /* ==========================================================================
+GESTION DU SYSTEME D'INSCRIPTION
+========================================================================== */
+
+
+    $('#emailSingUp1').keyup(function () {
+        emailSingUp1();
+    });
+
+    $('#emailConfirmSingUp1').keyup(function () {
+        emailConfirmSingUp1();
+    })
+
+    $('#passwordSingUp1').keyup(function () {
+        passwordSingUp1();
+    });
+
+    $('#passwordConfirmSingUp1').keyup(function () {
+        passwordConfirmSingUp1();
+    });
+
+    //fonction de verification du password en ajax
+    function emailSingUp1() {
+
+        if($('#emailSingUp').val().length < 4){
+            $('#output_emailSingUp').css('color', 'red').html("<br>Votre email est trop court (5 caractères minimum.)");
+        }else if($('#emailSingUp').val()!='' && $('#emailSingUp').val()!= $('#emailConfirmSingUp').val()){
+            $('#output_emailSingUp').css('color', 'red').html('<br>Les deux addresses emails sont différentes');
+            $('#output_emailConfirmSingUp').css('color', 'red').html('<br>Les deux adresses emails sont différentes');
+        }else{
+            $('#output_emailSingUp').html('<img src="img/check.png" title="validé" width="15" class="small_image" alt=""> ');
+            if($('#emailConfirmSingUp').val()!=''){
+                $('#output_emailConfirmSingUp').html('<img src="img/check.png" title="validé" width="15" class="small_image" alt=""> ');
+            }
+        }
+    }
+
+    //fonction de verification de l'email de confirmation en ajax
+    function emailConfirmSingUp1() {
+        $.ajax({
+            type: 'post',
+            url: 'Controller/traitement.php?singUp=singUp',
+            data: {
+                'emailSingUp': $('#emailSingUp').val(),
+                'emailConfirmSingUp': $('#emailConfirmSingUp').val()
+            },
+            success: function (data) {
+                if(data=='success'){
+                    $('#output_emailSingUp1').html('<img src="img/check.png" title="validé" width="15" class="small_image" alt=""> ');
+                    $('#output_emailConfirmSingUp1').html('<img src="img/check.png" title="validé" width="15" class="small_image" alt=""> ');
+                    return true;
+                }
+                else{
+                    $('#output_emailConfirmSingUp1').css('color', 'red').html(data);
+                }
+            }
+        });
+
+
+    }
+
+    //fonction de verification du password en ajax
+    function passwordSingUp1() {
+
+        if($('#passwordSingUp1').val().length < 5){
+            $('#output_passwordSingUp1').css('color', 'red').html("<br>Trop court (5 caractères minimum.)");
+        }else if($('#passwordConfirmSingUp1').val()!='' && $('#passwordConfirmSingUp1').val()!= $('#passwordSingUp1').val()){
+            $('#output_passwordSingUp1').css('color', 'red').html('<br>Les deux mots de passe sont différents');
+            $('#output_passwordConfirmSingUp1').css('color', 'red').html('<br>Les deux mots de passe sont différents');
+        }else{
+            $('#output_passwordSingUp1').html('<img src="img/check.png" title="validé" width="15" class="small_image" alt=""> ');
+            if($('#passwordConfirmSingUp1').val()!=''){
+                $('#output_passwordConfirmSingUp1').html('<img src="img/check.png" title="validé" width="15" class="small_image" alt=""> ');
+            }
+        }
+    }
+
+
+
+    //fonction de verification du password confirme en ajax
+    function passwordConfirmSingUp1() {
+        $.ajax({
+            type: 'post',
+            url: 'Controller/traitement.php?singUp=singUp',
+            data: {
+                'passwordSingUp': $('#passwordSingUp1').val(),
+                'passwordConfirmSingUp': $('#passwordConfirmSingUp1').val()
+            },
+            success: function (data) {
+                if(data=='success'){
+                    $('#output_passwordSingUp1').html('<img src="img/check.png" title="validé" width="15" class="small_image" alt=""> ');
+                    $('#output_passwordConfirmSingUp1').html('<img src="img/check.png" title="validé" width="15" class="small_image" alt=""> ');
+                    return true;
+                }
+                else{
+                    $('#output_passwordConfirmSingUp1').css('color', 'red').html(data);
+                }
+            }
+        });
+
+
+    }
+
+
+
+    $('#singUp1').submit(function () {
+        var nom1 = $('#nomSingUp1').val(),
+            prenom1 = $('#prenomSingUp1').val(),
+            birth1 = $('#birthSingUp1').val(),
+            telephone1 = $('#telSingUp1').val(),
+            email2 = $('#emailSingUp1').val(),
+            password2 = $('#passwordSingUp1').val();
+
+
+        if (nom1 == '' || prenom1 == '' || birth1 == ''|| telephone1 == '' || email2 == '' || password2 == '') {
+            $('body').notif({
+                title: 'Message d\'erreur',
+                content: 'Veuillez Remplir Tous les Champs !',
+                img: 'img/error-notif.png',
+                cls: 'error1'
+            });
+        }
+        else {
+            var $form1 = $(this);
+            var formdata1 = (window.FormData) ? new FormData($form1[0]) : null;
+            var donnee1 = (formdata1 !== null) ? formdata1 : $form1.serialize();
+
+            $.ajax({
+                type: 'post',
+                url: 'Controller/submit.php?singUp1=singUp1',
+                contentType: false, // obligatoire pour de l'upload
+                processData: false, // obligatoire pour de l'upload
+                data: donnee1,
+                beforeSend: function () {
+                    $('#enreg').attr('value', 'En cours...');
+                    $('#load_data_SingUp1').html('<div style="display: block;">\n' +
+                        '                                    <span class="loader loader-circle"></span>\n' +
+                        '                                    Chargement......\n' +
+                        '                                </div>');
+                },
+                success: function (data) {
+                    if(data != 'success'){
+                        $('#enreg').attr('value', 'Envoyer');
+                        $('#load_data_SingUp1').html('<div style="display: none;">\n' +
+                            '                                    <span class="loader loader-circle"></span>\n' +
+                            '                                    Chargement......\n' +
+                            '                                </div>');
+
+                        $('body').notif({
+                            title: 'Message d\'erreur',
+                            content: data,
+                            img: 'img/error-notif.png',
+                            cls: 'error1'
+                        });
+                    }
+                    else {
+                        $('#enreg').attr('value', 'Envoyer');
+                        $('#load_data_SingUp').html('<div style="display: none;">\n' +
+                            '                                    <span class="loader loader-circle"></span>\n' +
+                            '                                    Chargement......\n' +
+                            '                                </div>');
+                        $('#singUp1').hide();
+
+                        setTimeout(function () {
+                            location.href='members.php';
+                        }, 6000);
+                        /* $('#nomSingUp').val("");
+                         $('#prenomSingUp').val("");
+                         $('#emailSingUp').val("");
+                         $('#passwordSingUp').val("");*/
+
+                    }
                 }
 
             });

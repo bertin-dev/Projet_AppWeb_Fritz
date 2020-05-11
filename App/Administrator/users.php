@@ -25,15 +25,15 @@ require '../Config/Config_Server.php'; ?>
                 <!-- /#page-content-wrapper -->
                 <?php
                 if (isset($_GET['modif'])) {
-                    foreach (App::getDB()->query('SELECT role.libelle, profession.libelle, users.id, lastname, firstname, birth, 
+                    foreach (App::getDB()->query('SELECT role.libelle, activity_users.libelle, profession.libelle, users.id, lastname, firstname, birth, 
                                                                                       phone, email, password, etat_compte, users.create_at, users.update_at
                                                                                FROM users
                                                                                INNER JOIN role
                                                                                ON users.role_id=role.id
                                                                                INNER JOIN profession
                                                                                ON users.profession_id=profession.id
-                                                                               /*INNER JOIN activity_users
-                                                                               ON users.activity_users_id=activity_users.id*/
+                                                                               INNER JOIN activity_users
+                                                                               ON users.activity_users_id=activity_users.id
                                                                                WHERE users.id=' . $_GET['modif']) as $ccompte):
                         ?>
                         <article class="col-lg-7">
@@ -203,16 +203,16 @@ require '../Config/Config_Server.php'; ?>
                                         <tbody>
 
                                         <tbody id="tabdynamique">
-                                        <?php //activity_users.libelle,
-                                        foreach (App::getDB()->query('SELECT role.libelle, profession.libelle AS job, users.id, lastname, firstname, birth, 
+                                        <?php
+                                        foreach (App::getDB()->query('SELECT role.libelle, activity_users.libelle, profession.libelle AS job, users.id, lastname, firstname, birth, 
                                                                                       phone, email, password, etat_compte, users.create_at, users.update_at
                                                                                FROM users
                                                                                INNER JOIN role
                                                                                ON users.role_id=role.id
                                                                                INNER JOIN profession
                                                                                ON users.profession_id=profession.id
-                                                                               /*INNER JOIN activity_users
-                                                                               ON users.activity_users_id=activity_users.id*/
+                                                                               INNER JOIN activity_users
+                                                                               ON users.activity_users_id=activity_users.id
                                                                                ORDER BY id DESC') as $ccompte):
                                             echo '<tr>
                                                         <td title="ID">' . $ccompte->id . '</td> 

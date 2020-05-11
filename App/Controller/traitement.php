@@ -206,8 +206,8 @@ if (isset($_GET['singIn'])) {
         nettoieProtect();
         extract($_POST);
 
-        if (strlen($_POST['emailSingIn']) < 4 || strlen($_POST['emailSingIn']) > 20) {
-            echo '<br>L\'adresse Email est compris entre 3 et 16 caractères';
+        if (strlen($_POST['emailSingIn']) < 4 || strlen($_POST['emailSingIn']) > 50) {
+            echo '<br>L\'adresse Email est compris entre 3 et 50 caractères';
             exit;
         }
 
@@ -269,8 +269,8 @@ if (isset($_GET['getEmail'])) {
         nettoieProtect();
         extract($_POST);
 
-        if (strlen($_POST['getEmail']) < 4 || strlen($_POST['getEmail']) > 20) {
-            echo '<br>L\'adresse Email est compris entre 3 et 16 caractères';
+        if (strlen($_POST['getEmail']) < 4 || strlen($_POST['getEmail']) > 50) {
+            echo '<br>L\'adresse Email est compris entre 3 et 50 caractères';
             exit;
         }
 

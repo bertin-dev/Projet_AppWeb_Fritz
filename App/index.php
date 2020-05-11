@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <?php require 'Config/Config_Server.php'; ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -73,9 +74,17 @@
 <section>
     <div class="container">
         <div class="row col-lg-offset-10" style="margin-top: 20px;">
-            <span> <a href="login.php">Connexion</a> </span>
-            <span style="margin-left: 20px;"> <a href="register.php">Souscription</a> </span>
 
+            <?php if(isset($_COOKIE['ID_USER']) || isset($_SESSION['ID_USER'])){
+                ?>
+                <span> <a href="login.php">Connexion</a> </span>
+            <?php
+            } else{
+                ?>
+                <span> <a href="login.php">Connexion</a> </span>
+                <span style="margin-left: 20px;"> <a href="register.php">Souscription</a> </span>
+            <?php
+            } ?>
         </div>
     </div>
 
